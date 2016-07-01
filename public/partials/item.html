@@ -1,0 +1,49 @@
+<div class="page-header">
+    <h1>投票所</h1>
+</div>
+<div class="well well-lg">
+    <strong>質問</strong><br>
+    {{poll.question}}
+</div>
+<div ng-hide="poll.userVoted">
+    <div class="lead">次の中から選んでください</div>
+    <form role="form" ng-submit="vote()">
+        <div class="radio" ng-repeat="choice in poll.choices">
+            <label>
+                <input type="radio" name="choice" ng-model="poll.userVote" value="{{choice.id}}">
+            </label>
+        </div>
+        <p><hr></p>
+        <div class="row">
+            <div class="col-xs-6">
+                <button class="btn btn-primary pull-right " type="submit">投票する</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div ng-show="poll.userVoted">
+    <table>
+        <tbody>
+         <tr ng-repeat="choice in poll.choices">
+             <td>{{choice.text}}</td>
+             <td>
+                 <table style="width:{{choice.votes.length / poll.totalVotes*100}}%;">
+                     <tr>
+                         <td>{{choices.votes.length}}</td>
+                     </tr>
+                 </table>
+             </td>
+         </tr>
+        </tbody>
+    </table>
+    <p><em>
+        {{poll.totalVotes}}票入っています<span ng-show="poll.userVoted">あなたは{{poll.userChoice.text}}
+    </span>
+    </em></p>
+    <p>
+    <hr>
+    </p>
+    <p><a href="#/polls" class="btn btn-default" role="button"><span class="glyphicon glyphicon-arrow-left"></span> Back to
+        Poll List</a></p>
+</div>
+<p>&nbsp;</p>
